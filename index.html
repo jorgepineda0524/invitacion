@@ -313,19 +313,26 @@
 
     .flowers-img {
         position: absolute;
-        top: -150px; /* Ajusta la posición vertical (mueve 30px hacia arriba, fuera del círculo) */
-        right: 90px; /* Ajusta la posición horizontal (10px desde el borde derecho) */
-        width: 150px; /* Define el tamaño de la imagen de flores */
+        top: -120px; 
+        right: 100px; /* Mantener este valor para escritorio */
+        width: 110px; 
         height: auto; 
-        border-radius: 0 !important; /* Asegura que no tenga el border-radius del retrato */
-        z-index: 10; /* Asegura que esté por encima de la foto de la quinceañera */
-        object-fit: contain;
+        z-index: 10; 
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); 
     }
     @media (max-width: 880px) {
         .flowers-img {
-         width: 80px; /* Un poco más pequeña en pantallas más chicas */
-         top: -20px; 
-         right: 5px;
+            width: 90px; /* Tamaño reducido para tabletas/móviles grandes */
+            top: -30px; /* <-- AJUSTE: Súbelo para que se vea por encima del círculo */
+            right: 10px; /* <-- AJUSTE: Mueve la posición cerca del borde derecho */
+         }
+    }
+
+    @media (max-width:520px){
+        .flowers-img {
+            width: 70px; /* Tamaño más pequeño para móvil */
+            top: -15px; /* Sube la imagen un poco */
+            right: 5px;
         }
     }
     /* --- FIN ESTILOS DEL FORMULARIO --- */
