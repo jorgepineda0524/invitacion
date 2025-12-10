@@ -10,7 +10,7 @@
 <style>
     /* Reset y utilidades */
     :root{
-        --pink:#f6d9df;
+        --pink:#f185a5;
         --pink-2:#ffd6e6;
         --accent:#e6a6b3;
         --text:#222;
@@ -63,7 +63,7 @@
         padding:40px 20px;
     }
     .name{font-family:'Dancing Script',cursive;font-size:72px;margin:0 0 6px;letter-spacing:1px}
-    .subtitle{font-weight:400;letter-spacing:3px;font-size:14px;margin-bottom:18px;color:rgba(255,255,255,0.9)}
+    .subtitle{font-weight:600;letter-spacing:1px;font-size:16px;margin-bottom:18px;color:rgba(255,255,255,0.9)}
     .divider{
         height:1px;width:220px;background:rgba(255,255,255,0.18);margin:18px auto;
     }
@@ -85,6 +85,7 @@
     /* Secciones */
     section{padding:60px 0}
     h2.section-title{font-family:'Dancing Script',cursive;font-size:38px;margin:0 0 12px;text-align:center; color:#D4AF37;}
+    h2.section-title-f{font-family:'Dancing Script',cursive;font-size:38px;margin:0 0 12px;text-align:center; color:#fde36e;}
     p.lead{text-align:center;max-width:920px;margin:0 auto 36px;color:var(--muted);line-height:1.9}
 
     /* Circular photo */
@@ -108,7 +109,7 @@
         content:'“';font-family:'Dancing Script';font-size:56px;color:rgba(180,120,110,0.9);position:absolute;
         left:16px;top:-18px;
     }
-    .quote{font-family:'Dancing Script';font-size:20px;color:var(--text);line-height:1.7}
+    .quote{font-family:'Dancing Script';font-size:25px;color:var(--text);line-height:1.7}
 
     /* Countdown */
     .countdown-wrap{text-align:center;margin-top:20px}
@@ -170,44 +171,56 @@
     /* --- ESTILOS DEL CARRUSEL DE FOTOS (AJUSTADO PARA 3x1) --- */
     .gallery-section {
         background: var(--pink-2);
-        padding: 40px 0;
+        padding: 60px 0;
     }
     .carousel-container {
         max-width: 900px;
         margin: 0 auto;
         overflow: hidden; 
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 15px; /* <-- Bordes más redondeados */
+        /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */ /* <-- ELIMINAR O COMENTAR LA SOMBRA VIEJA */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 0 0 2px var(--accent); /* <-- Sombra más elegante y borde sutil */
         position: relative;
+        background-color: var(--white); /* <-- Fondo blanco dentro del contenedor */
+        padding: 0; /* Asegurar padding cero */
     }
-    .carousel-track {
+    /* --- ESTILOS DEL CARRUSEL DE FOTOS (AJUSTADO PARA 3x1 y 14 slides) --- */
+/* ... (Sección gallery-section y carousel-container se mantienen) ... */
+
+     .carousel-track {
         display: flex;
-        /* El ancho total del track: 5 fotos * (100% / 3) = 166.666% */
-        width: calc(100% * 5 / 3); 
+        /* (14 total / 3 visibles) * 100% = 466.666% de ancho total */
+        width: calc(100% * 14 / 3); 
         transition: transform 0.8s ease-in-out;
     }
     .carousel-slide {
-        /* Cada slide ocupa 1/3 del área visible */
-        width: calc(100% / 5); /* Mantiene la proporción para 5 elementos en el track */
+        /* Cada slide ocupa 1/14 del ancho del track */
+        width: calc(100% / 14); 
         flex-shrink: 0;
+        margin: 0;
     }
     .carousel-slide img {
         width: 100%;
-        height: 370px; /* Altura fija según la especificación de la imagen */
-        object-fit: cover;
+        height: 370px; 
+        object-fit: contain;
         display: block;
+        border: none;
     }
     @media (max-width: 768px) {
-        /* En móviles, mostrar 2 fotos a la vez */
-        .carousel-track {
-            width: calc(100% * 5 / 2);
-        }
-        .carousel-slide {
-            width: calc(100% / 5); 
-        }
-        .carousel-slide img {
-            height: 200px;
-        }
+         /* En móviles, mostrar 2 fotos a la vez (14 slides totales) */
+         .carousel-track {
+         /* Cálculo: (14 slides / 2 visibles) * 100% = 700% de ancho total */
+         width: calc(100% * 14 / 2); 
+         }
+         .carousel-slide {
+         /* Ancho del slide: (100% / 14 slides) * 2 visibles = 14.28% */
+         width: calc(100% / 14); 
+         /* margin-right: -1px;  */
+         }
+         .carousel-slide img {
+         height: 275px; 
+         object-fit: contain; 
+         }
     }
     /* --- FIN ESTILOS DEL CARRUSEL DE FOTOS --- */
 
@@ -384,9 +397,10 @@
         <h1 class="name">Valentina</h1>
         <div class="subtitle">MIS QUINCE AÑOS</div>
         <div class="divider" aria-hidden="true"></div>
-        <div class="subtitle" style="letter-spacing:1px">RESERVA EL DÍA</div>
+        <div class="subtitle" style="letter-spacing:1px">DÍA DEL EVENTO</div>
         <div class="date">6 de Febrero</div>
-        <div class="subtitle">Los invita: Angélica Aguilar y René Cifuentes</div>
+        <div class="subtitle">Los invita:</div>
+        <div class="subtitle">Angélica Aguilar y René Cifuentes</div>
         <div class="audio-wrap" style="margin-top:22px;">
             <audio controls preload="metadata" id="bgAudio" autoplay muted>
                 <source src="cancion.mp3" type="audio/mp3">
@@ -399,7 +413,7 @@
 <main>
     <section>
         <div class="container">
-            <h2 class="section-title">Una princesa se viste de ilusión.</h2>
+            <h2 class="section-title-f">Una princesa se viste de ilusión.</h2>
             <p class="lead">Gracias Dios por los padres que me diste, por encomendarles la bendición de darme la vida y la misión de formarme y verme crecer. La dicha de compartir mis triunfos, sueños, esperanzas.</p>
             <br>
             <div style="position:relative; max-width: 320px; margin: 36px auto 0;"> 
@@ -487,15 +501,25 @@
     <section class="gallery-section">
         <h2 class="section-title">Nuestros Mejores Momentos</h2>
         <div class="carousel-container">
-            <div class="carousel-track" id="carouselTrack">
-                <div class="carousel-slide"><img src="foto1.jpg" alt="Foto 1 de Valentina"></div>
-                <div class="carousel-slide"><img src="foto2.jpg" alt="Foto 2 de Valentina"></div>
-                <div class="carousel-slide"><img src="foto3.jpg" alt="Foto 3 de Valentina"></div>
-                <div class="carousel-slide"><img src="foto4.jpg" alt="Foto 4 de Valentina"></div>
-                <div class="carousel-slide"><img src="foto5.jpg" alt="Foto 5 de Valentina"></div>
-                <div class="carousel-slide"><img src="foto6.jpg" alt="Foto 6 de Valentina"></div>
-                <div class="carousel-slide"><img src="foto7.jpg" alt="Foto 7 de Valentina"></div>
-            </div>
+             <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide clone"><img src="foto5.jpg" alt="Foto 5 de Valentina (Clone)"></div>
+            <div class="carousel-slide clone"><img src="foto6.jpg" alt="Foto 6 de Valentina (Clone)"></div>
+            <div class="carousel-slide clone"><img src="foto7.jpg" alt="Foto 7 de Valentina (Clone)"></div>
+            <div class="carousel-slide clone"><img src="foto4.jpg" alt="Foto 4 de Valentina (Clone)"></div>
+
+
+            <div class="carousel-slide"><img src="foto1.jpg" alt="Foto 1 de Valentina"></div>
+            <div class="carousel-slide"><img src="foto2.jpg" alt="Foto 2 de Valentina"></div>
+            <div class="carousel-slide"><img src="foto3.jpg" alt="Foto 3 de Valentina"></div>
+            <div class="carousel-slide"><img src="foto4.jpg" alt="Foto 4 de Valentina"></div>
+            <div class="carousel-slide"><img src="foto5.jpg" alt="Foto 5 de Valentina"></div>
+            <div class="carousel-slide"><img src="foto6.jpg" alt="Foto 6 de Valentina"></div>
+            <div class="carousel-slide"><img src="foto7.jpg" alt="Foto 7 de Valentina"></div>
+
+            <div class="carousel-slide clone"><img src="foto1.jpg" alt="Foto 1 de Valentina (Clone)"></div>
+            <div class="carousel-slide clone"><img src="foto2.jpg" alt="Foto 2 de Valentina (Clone)"></div>
+            <div class="carousel-slide clone"><img src="foto3.jpg" alt="Foto 3 de Valentina (Clone)"></div>
+        </div>
         </div>
     </section>
 
@@ -503,7 +527,6 @@
 <section>
     <div class="container">
         <h2 class="section-title">Ubicación</h2>
-        <p class="lead">Será un día inolvidable, y nos encantará compartirlo contigo.</p>
 
         <div style="
             max-width:800px;
@@ -525,7 +548,7 @@
 
             <h2 class="section-title" style="margin-top:25px;font-size:32px;">⏰ Hora</h2>
             <p style="text-align:center;margin:0;color:#444;font-weight:600;font-size:18px;">
-                6 de Febrero – 7:00 PM
+                7:00 PM
             </p>
 
             <div style="text-align:center;margin-top:25px;">
@@ -537,6 +560,8 @@
                 </a>
             </div>
         </div>
+    </br>
+        <p class="lead">Será un día inolvidable, y nos encantará compartirlo contigo.</p>
     </div>
 </section>
 
@@ -595,11 +620,17 @@
     const target = new Date(2026, 1, 6, 19, 0, 0); 
     
     // --- Configuración del Carrusel ---
-    const VISIBLE_SLIDES = 3; // Mostrar 3 fotos a la vez
-    const TOTAL_SLIDES = 5;   // Total de fotos que tienes
-    const MAX_PAGES = TOTAL_SLIDES - VISIBLE_SLIDES + 1; // 5 - 3 + 1 = 3 páginas posibles (inicio, centro, final)
+    const SLIDES_COUNT = 7; // El número real de fotos
+    const TOTAL_CLONES = 7; // 4 al inicio, 3 al final
+    const TOTAL_SLIDES = SLIDES_COUNT + TOTAL_CLONES; // 14
+    const FIRST_SLIDE_INDEX = 4; // El índice donde comienza la foto 1 (después de los 4 clones)
+    const VISIBLE_SLIDES = 3; 
+
+    // Usamos el número total de slides reales (7) como el número de "páginas" de desplazamiento
+    const MAX_PAGES = SLIDES_COUNT; // 7 páginas (0 a 6)
+
     let currentPage = 0;
-    const intervalTime = 2000; // 4 segundos entre cada pase
+    const intervalTime = 4000; // 4 segundos entre cada pase (Aumentado para mejor visualización)
 
     // ------------- Contador ---------------
     function updateCountdown(){
@@ -636,16 +667,52 @@
     const carouselTrack = document.getElementById('carouselTrack');
     
     function nextSlide() {
-        // Pasa a la siguiente página. Si llega al final, vuelve a 0.
-        currentPage = (currentPage + 1) % MAX_PAGES;
-        updateCarousel();
+        currentPage++;
+        updateCarousel(true);
+
+        // Disparamos la función de loop después de que la animación termine
+        if (currentPage === SLIDES_COUNT) {
+            setTimeout(() => {
+                currentPage = 0; // Se posiciona en la foto 1 real (índice 4)
+                updateCarousel(false);
+            }, 800); // 800ms es la duración de la transición CSS
+        }
     }
 
-    function updateCarousel() {
-        // Calcula el porcentaje de desplazamiento basado en el ancho de 1 foto (100%/5)
+    if(carouselTrack) {
+        // Posicionar inicialmente en el primer slide real (foto 1)
+        currentPage = 0; // Se posiciona en el slide real 1
+        updateCarousel(false); // Posicionamiento inicial sin animación
+        
+        if (TOTAL_SLIDES > VISIBLE_SLIDES) {
+        setInterval(nextSlide, intervalTime);
+        }
+    }
+
+    function updateCarousel(smooth = true) {
+        // El desplazamiento siempre empieza en el primer slide real (índice 4)
+        const targetIndex = FIRST_SLIDE_INDEX + currentPage;
+
+        // Cálculo del offset: (índice destino / total de slides) * 100%
         const slideWidthPercentage = 100 / TOTAL_SLIDES; 
-        const offset = -currentPage * slideWidthPercentage; 
+        const offset = -targetIndex * slideWidthPercentage; 
+
+        carouselTrack.style.transition = smooth ? 'transform 0.8s ease-in-out' : 'none';
         carouselTrack.style.transform = `translateX(${offset}%)`;
+    }
+
+    function handleInfiniteLoop() {
+        // Si estamos en el primer slide (índice 0), saltamos instantáneamente al último clon (índice 7)
+        if (currentPage === SLIDES_COUNT) {
+            currentPage = 0;
+            updateCarousel(false); // Salto instantáneo (smooth=false)
+            currentPage = 1;
+        } 
+         // Si estamos en el último slide (clon 7), saltamos instantáneamente al slide real 7
+        else if (currentPage === -1) {
+        currentPage = SLIDES_COUNT - 1; 
+        updateCarousel(false); // Salto instantáneo
+        }
     }
 
     // Inicia el carrusel automático
