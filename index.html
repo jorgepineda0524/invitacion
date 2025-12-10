@@ -90,8 +90,11 @@
     /* Circular photo */
     .portrait{
         width:320px;height:320px;border-radius:50%;
-        overflow:hidden;margin:36px auto 0;box-shadow:0 8px 40px rgba(0,0,0,0.08);border:10px solid rgba(255,255,255,0.8);
+        overflow:hidden;
+        /* margin:36px auto 0; <-- ELIMINAR ESTA LÍNEA */
+        box-shadow:0 8px 40px rgba(0,0,0,0.08);border:10px solid rgba(255,255,255,0.8);
         background:#fff;
+    /* Quitar position: relative si estaba aquí */
     }
     .portrait img{width:100%;height:100%;object-fit:cover;display:block}
 
@@ -130,7 +133,39 @@
     @keyframes fall{
         0%{transform:translateY(-60px) rotate(0deg);opacity:0.9}
         100%{transform:translateY(420px) rotate(360deg);opacity:0.05}
+    } 
+
+    /* Oculto antes de que aparezca */
+    .hidden {
+        opacity: 0;
+        transform: translateY(30px);
     }
+
+    /* Animación cuando entra a pantalla */
+    .reveal-text {
+        transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        font-family:'Dancing Script',cursive;font-size:38px;margin:0 0 12px;text-align:center; color:#D4AF37;
+    }
+
+    .reveal-text.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .hidden {
+    opacity: 0;
+    transform: translateY(40px);
+    }
+
+    .reveal-section {
+        transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+    }
+
+    .reveal-section.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
 
     /* --- ESTILOS DEL CARRUSEL DE FOTOS (AJUSTADO PARA 3x1) --- */
     .gallery-section {
@@ -158,7 +193,7 @@
     }
     .carousel-slide img {
         width: 100%;
-        height: 275px; /* Altura fija según la especificación de la imagen */
+        height: 370px; /* Altura fija según la especificación de la imagen */
         object-fit: cover;
         display: block;
     }
@@ -257,6 +292,42 @@
     .form-submit-btn:hover {
         background-color: #d18f9c;
     }
+    section:nth-of-type(2) {
+    background-color: var(--pink-2); 
+    padding: 40px 0; /* Ajuste para consistencia con la galería */
+    }
+    section:nth-of-type(3) {
+        background-color: var(--white);
+        padding: 60px 0;
+    }
+
+
+    section:nth-of-type(5) { 
+        background-color: var(--pink-2); 
+    }
+
+    .flower-wrap {
+    position: relative;
+    display: inline-block;
+    }
+
+    .flowers-img {
+        position: absolute;
+        top: -150px; /* Ajusta la posición vertical (mueve 30px hacia arriba, fuera del círculo) */
+        right: 90px; /* Ajusta la posición horizontal (10px desde el borde derecho) */
+        width: 150px; /* Define el tamaño de la imagen de flores */
+        height: auto; 
+        border-radius: 0 !important; /* Asegura que no tenga el border-radius del retrato */
+        z-index: 10; /* Asegura que esté por encima de la foto de la quinceañera */
+        object-fit: contain;
+    }
+    @media (max-width: 880px) {
+        .flowers-img {
+         width: 80px; /* Un poco más pequeña en pantallas más chicas */
+         top: -20px; 
+         right: 5px;
+        }
+    }
     /* --- FIN ESTILOS DEL FORMULARIO --- */
 
 
@@ -276,7 +347,9 @@
         .divider{width:160px}
         .name{font-size:42px}
         .portrait{width:200px;height:200px}
-        .count-item{width:84px;height:84px}
+        .count-item{width:70px;height:70px}
+        .count-number{font-size:24px;} 
+        .count-label{font-size:10px;}
         .dress{gap:30px}
     }
 
@@ -308,8 +381,8 @@
         <div class="date">6 de Febrero</div>
         <div class="subtitle">Los invita: Angélica Aguilar y René Cifuentes</div>
         <div class="audio-wrap" style="margin-top:22px;">
-            <audio controls preload="metadata" id="bgAudio">
-                <source src="assets/song.mp3" type="audio/mpeg">
+            <audio controls preload="metadata" id="bgAudio" autoplay muted>
+                <source src="cancion.mp3" type="audio/mp3">
                 Tu navegador no soporta audio.
             </audio>
         </div>
@@ -321,17 +394,24 @@
         <div class="container">
             <h2 class="section-title">Una princesa se viste de ilusión.</h2>
             <p class="lead">Gracias Dios por los padres que me diste, por encomendarles la bendición de darme la vida y la misión de formarme y verme crecer. La dicha de compartir mis triunfos, sueños, esperanzas.</p>
-
-            <div class="portrait" aria-hidden="false">
-                <img src="quinceanera.jpg" alt="Foto de Valentina">
-            </div>
+            <br>
+            <div style="position:relative; max-width: 320px; margin: 36px auto 0;"> 
+                <div class="portrait" aria-hidden="false">
+                    <img src="quinceanera.jpg" alt="Foto de Valentina">
+                </div>
+            <img src="flores.png" alt="Decoracion de flores" class="flowers-img"> 
+        </div>
 
             <div class="quote-box" role="note">
                 <p class="quote">Los momentos especiales se hacen inolvidables rodeados de aquellos a quienes amamos, por eso tu presencia es muy importante para nosotros.</p>
             </div>
 
+    </section>
+
+    <section>
+            <div class="reveal-section hidden">
             <div class="countdown-wrap">
-                <h2 class="section-title" style="font-size:34px;margin-bottom:10px">Faltan:</h2>
+                <h2 class="section-title" style="font-size:34px;margin-bottom:10px">Faltan solo:</h2>
                 <div class="countdown" id="countdown">
                     <div class="count-item">
                         <div class="count-number" id="days">0</div>
@@ -351,7 +431,8 @@
                     </div>
                 </div>
             </div>
-
+            </div>
+    
             <div style="text-align:center;margin-top:40px">
                 <h2 class="section-title" style="font-size:32px;margin-bottom:6px">Código de vestuario</h2>
                 <div class="dress">
@@ -364,9 +445,21 @@
                     </div>
                 </div>
 
-                <p class="lead" style="margin-top:20px;font-size:1.1em;color:var(--accent);font-weight:700;">
-                    ¡Tu regalo es opcional! Será **Lluvia de Sobres**.
-                </p>
+    </section>  
+
+                <!-- <div class="envelopes" aria-hidden="true">
+                    <div class="env"><img src="sobre.jpg" alt=""></div>
+                    <div class="env"><img src="sobre.jpg" alt=""></div>
+                    <div class="env"><img src="sobre.jpg" alt=""></div>
+                    <div class="env"><img src="sobre.jpg" alt=""></div>
+                </div> -->
+            </div>
+        </div>
+    
+
+    <section>
+        <div class="reveal-section hidden">
+        <div class="container">
 
                 <div class="dress">
                     <div class="dress-item">
@@ -375,14 +468,12 @@
                         </div>
                     </div>
                 </div>
+                <h2 class="reveal-text hidden" style="font-size:32px;margin-bottom:6px">Lluvia de sobres</h2>
 
-                <div class="envelopes" aria-hidden="true">
-                    <div class="env"><img src="assets/envelope.png" alt=""></div>
-                    <div class="env"><img src="assets/envelope.png" alt=""></div>
-                    <div class="env"><img src="assets/envelope.png" alt=""></div>
-                    <div class="env"><img src="assets/envelope.png" alt=""></div>
-                </div>
-            </div>
+                <p class="lead" style="margin-top:20px;font-size:1.1em;color:var(--accent);font-weight:700;">
+                    Si deseas obsequiarme algo especial, puedes hacerlo con un sobre ✨ ¡Gracias por tu cariño y por ser parte de este día tan importante!
+                </p>
+        </div>
         </div>
     </section>
 
@@ -392,9 +483,11 @@
             <div class="carousel-track" id="carouselTrack">
                 <div class="carousel-slide"><img src="foto1.jpg" alt="Foto 1 de Valentina"></div>
                 <div class="carousel-slide"><img src="foto2.jpg" alt="Foto 2 de Valentina"></div>
-                <div class="carousel-slide"><img src="foto3_.jpg" alt="Foto 3 de Valentina"></div>
+                <div class="carousel-slide"><img src="foto3.jpg" alt="Foto 3 de Valentina"></div>
                 <div class="carousel-slide"><img src="foto4.jpg" alt="Foto 4 de Valentina"></div>
                 <div class="carousel-slide"><img src="foto5.jpg" alt="Foto 5 de Valentina"></div>
+                <div class="carousel-slide"><img src="foto6.jpg" alt="Foto 6 de Valentina"></div>
+                <div class="carousel-slide"><img src="foto7.jpg" alt="Foto 7 de Valentina"></div>
             </div>
         </div>
     </section>
@@ -447,8 +540,8 @@
                 <h3>Confirma Tu Asistencia</h3>
                 <form id="rsvp-form">
                     <div class="form-group">
-                        <label for="name">Nombre Completo del Invitado(s):</label>
-                        <input type="text" id="name" name="name" required placeholder="Ej: Familia García / Sr. Juan Pérez">
+                        <label for="name">Nombre Completo del Invitado:</label>
+                        <input type="text" id="name" name="name" required >
                     </div>
 
                     <div class="form-group">
@@ -471,7 +564,7 @@
                     </div>
                     <div class="form-group">
                         <label for="notes">Comentario Adicional (Opcional):</label>
-                        <textarea id="notes" name="notes" rows="3" placeholder="Ej: Feliz cumpleaños!"></textarea>
+                        <textarea id="notes" name="notes" rows="3" placeholder="Ej: Feliz cumpleaños! ❤️"></textarea>
                     </div>
                     <button type="submit" class="form-submit-btn">Enviar Confirmación por WhatsApp</button>
                 </form>
@@ -571,6 +664,62 @@
                 document.getElementById('guests').removeAttribute('required');
             }
         });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const elements = document.querySelectorAll(".reveal-text");
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+        });
+    }, { threshold: 0.3 }); // 30% visible
+
+    elements.forEach(el => observer.observe(el));
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const elements = document.querySelectorAll(".reveal-section");
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+        });
+    }, { threshold: 0.3 });
+
+    elements.forEach(el => observer.observe(el));
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('bgAudio');
+    
+    if (audio) {
+        // 1. Intenta que el audio empiece a reproducirse (solo funciona si está muted)
+        audio.play().catch(error => {
+            // Este error es normal si el navegador bloquea el autoplay inicial.
+            console.log("Error intentando autoplay: ", error);
+        });
+        
+        // 2. Función que se dispara con el primer clic/toque
+        function handleFirstInteraction() {
+            if (audio.muted) {
+                audio.muted = false; // QUITA EL SILENCIO
+                audio.play(); 
+                
+                // Desactiva el listener después de la primera ejecución
+                document.removeEventListener('click', handleFirstInteraction);
+                document.removeEventListener('touchstart', handleFirstInteraction);
+            }
+        }
+
+        // 3. Espera el primer clic (ratón) o toque (móvil)
+        document.addEventListener('click', handleFirstInteraction);
+        document.addEventListener('touchstart', handleFirstInteraction);
+    }
     });
 
     document.getElementById('rsvp-form').addEventListener('submit', function(event) {
