@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Valentina — Mis quince años</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+    /* Reset y utilidades */
+    :root{
+        --pink:#f6d9df;
+        --pink-2:#ffd6e6;
+        --accent:#e6a6b3;
+        --text:#222;
+        --muted:#6b6b6b;
+        --btn:#f6b5c9;
+        --white:#fff;
+        --hero-height:85vh;
+        
+        /* Colores específicos para el formulario */
+        --form-bg: rgba(255, 255, 255, 0.9);
+        --form-border: #e6a6b3; 
+        --radio-checked: #e6a6b3; 
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Lora',serif;color:var(--text);background:var(--pink);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* HERO */
+    .hero{
+        position:relative;
+        height:var(--hero-height);
+        min-height:480px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        color:var(--white);
+        overflow:hidden;
+    }
+    .hero video, .hero .hero-bg{
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+    .hero::after{
+        content:"";
+        position:absolute;
+        inset:0;
+        background:linear-gradient(180deg, rgba(9,6,6,0.45) 10%, rgba(9,6,6,0.45) 60%, rgba(9,6,6,0.55) 100%);
+        mix-blend-mode:overlay;
+    }
+
+    .hero-content{
+        position:relative;
+        z-index:5;
+        max-width:720px;
+        padding:40px 20px;
+    }
+    .name{font-family:'Dancing Script',cursive;font-size:72px;margin:0 0 6px;letter-spacing:1px}
+    .subtitle{font-weight:400;letter-spacing:3px;font-size:14px;margin-bottom:18px;color:rgba(255,255,255,0.9)}
+    .divider{
+        height:1px;width:220px;background:rgba(255,255,255,0.18);margin:18px auto;
+    }
+    .date{font-family:'Dancing Script',cursive;font-size:28px;margin-bottom:20px;opacity:0.98}
+    .btn{
+        display:inline-block;padding:12px 34px;border-radius:30px;background:var(--btn);color:#222;font-weight:600;box-shadow:0 6px 18px rgba(0,0,0,0.18);border:0;cursor:pointer;
+    }
+
+    /* Audio bar */
+    .audio-wrap{
+        position:relative;
+        width:90%;
+        max-width:900px;
+        margin:18px auto 0;
+        z-index:6;
+    }
+    audio{width:100%;outline:none}
+
+    /* Secciones */
+    section{padding:60px 0}
+    h2.section-title{font-family:'Dancing Script',cursive;font-size:38px;margin:0 0 12px;text-align:center; color:#D4AF37;}
+    p.lead{text-align:center;max-width:920px;margin:0 auto 36px;color:var(--muted);line-height:1.9}
+
+    /* Circular photo */
+    .portrait{
+        width:320px;height:320px;border-radius:50%;
+        overflow:hidden;margin:36px auto 0;box-shadow:0 8px 40px rgba(0,0,0,0.08);border:10px solid rgba(255,255,255,0.8);
+        background:#fff;
+    }
+    .portrait img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* Quote area */
+    .quote-box{
+        max-width:760px;margin:20px auto 40px;padding:30px;border:2px solid rgba(180,120,110,0.35);
+        background:linear-gradient(0deg, rgba(255,255,255,0.6), rgba(255,255,255,0.6));
+        text-align:center;position:relative;
+    }
+    .quote-box::before,.quote-box::after{
+        content:'“';font-family:'Dancing Script';font-size:56px;color:rgba(180,120,110,0.9);position:absolute;
+        left:16px;top:-18px;
+    }
+    .quote{font-family:'Dancing Script';font-size:20px;color:var(--text);line-height:1.7}
+
+    /* Countdown */
+    .countdown-wrap{text-align:center;margin-top:20px}
+    .countdown{display:flex;gap:22px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:18px}
+    .count-item{width:120px;height:120px;border-radius:999px;background:rgba(255,255,255,0.95);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+    .count-number{font-size:34px;font-weight:600}
+    .count-label{font-size:12px;color:var(--muted);letter-spacing:1px;margin-top:6px}
+
+    /* Dress code */
+    .dress{display:flex;justify-content:center;gap:80px;margin-top:36px;flex-wrap:wrap}
+    .dress-item{text-align:center}
+    .circle-ico{width:78px;height:78px;border-radius:999px;background:var(--pink-2);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;box-shadow:inset 0 -4px rgba(0,0,0,0.04)}
+    .dress-item h4{font-family:'Dancing Script';margin:6px 0 0}
+
+    /* Lluvia sobres (simple) */
+    .envelopes{position:relative;height:140px;margin-top:30px;pointer-events:none}
+    .env{position:absolute;left:50%;transform:translateX(-50%);bottom:110%;opacity:0.9}
+    .env img{width:36px;opacity:0.95;animation:fall 4s linear infinite;display:block}
+    .env:nth-child(2){left:40%;animation-delay:0.35s}
+    .env:nth-child(3){left:60%;animation-delay:0.7s}
+    .env:nth-child(4){left:70%;animation-delay:1.1s}
+    @keyframes fall{
+        0%{transform:translateY(-60px) rotate(0deg);opacity:0.9}
+        100%{transform:translateY(420px) rotate(360deg);opacity:0.05}
+    }
+
+    /* --- ESTILOS DEL CARRUSEL DE FOTOS (AJUSTADO PARA 3x1) --- */
+    .gallery-section {
+        background: var(--pink-2);
+        padding: 40px 0;
+    }
+    .carousel-container {
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden; 
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+    .carousel-track {
+        display: flex;
+        /* El ancho total del track: 5 fotos * (100% / 3) = 166.666% */
+        width: calc(100% * 5 / 3); 
+        transition: transform 0.8s ease-in-out;
+    }
+    .carousel-slide {
+        /* Cada slide ocupa 1/3 del área visible */
+        width: calc(100% / 5); /* Mantiene la proporción para 5 elementos en el track */
+        flex-shrink: 0;
+    }
+    .carousel-slide img {
+        width: 100%;
+        height: 275px; /* Altura fija según la especificación de la imagen */
+        object-fit: cover;
+        display: block;
+    }
+    @media (max-width: 768px) {
+        /* En móviles, mostrar 2 fotos a la vez */
+        .carousel-track {
+            width: calc(100% * 5 / 2);
+        }
+        .carousel-slide {
+            width: calc(100% / 5); 
+        }
+        .carousel-slide img {
+            height: 200px;
+        }
+    }
+    /* --- FIN ESTILOS DEL CARRUSEL DE FOTOS --- */
+
+    /* --- ESTILOS DEL FORMULARIO RSVP (EXISTENTES) --- */
+    #rsvp-form-section {
+        padding: 40px;
+        background-color: var(--form-bg);
+        border: 2px solid var(--form-border);
+        max-width: 600px;
+        margin: 40px auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    #rsvp-form-section h3 {
+        font-family:'Dancing Script',cursive;
+        font-size:32px;
+        margin-bottom:20px;
+        color:var(--accent);
+    }
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    .form-group label {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--text);
+    }
+    .form-group input[type="text"],
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--form-border);
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-family: inherit;
+        font-size: 1em;
+    }
+    .radio-group {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .radio-label {
+        display: inline-block;
+        cursor: pointer;
+        padding: 10px 15px;
+        border: 2px solid var(--form-border);
+        border-radius: 8px;
+        background-color: var(--white);
+        color: var(--text);
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    .radio-input {
+        display: none;
+    }
+    .radio-input:checked + .radio-label {
+        background-color: var(--radio-checked);
+        color: var(--white);
+        border-color: var(--radio-checked);
+        box-shadow: 0 0 5px rgba(230, 166, 179, 0.7);
+    }
+    .form-submit-btn {
+        width: 100%;
+        padding: 14px;
+        border-radius: 30px;
+        background-color: var(--accent);
+        color: var(--white);
+        font-weight: 700;
+        font-size: 1.1em;
+        margin-top: 20px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: background-color 0.3s;
+    }
+    .form-submit-btn:hover {
+        background-color: #d18f9c;
+    }
+    /* --- FIN ESTILOS DEL FORMULARIO --- */
+
+
+    /* Footer spacing */
+    footer{padding:60px 0;text-align:center;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:880px){
+        .name{font-size:48px}
+        .hero{min-height:520px}
+        .portrait{width:260px;height:260px}
+        .count-item{width:96px;height:96px}
+        #rsvp-form-section{margin:20px 15px;padding:30px}
+    }
+    @media (max-width:520px){
+        .hero{min-height:480px;padding:40px 12px}
+        .divider{width:160px}
+        .name{font-size:42px}
+        .portrait{width:200px;height:200px}
+        .count-item{width:84px;height:84px}
+        .dress{gap:30px}
+    }
+
+    /* small decorative sparkle overlay (soft) */
+    .sparkles{
+        position:absolute;inset:0;pointer-events:none;background-image:
+          radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+        background-size:120px 120px; mix-blend-mode:screen;opacity:0.35;
+    }
+
+</style>
+</head>
+<body>
+
+<header class="hero" role="banner">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-bg" style="background-image:url('assets/hero.jpg');"></div>
+
+    <div class="sparkles" aria-hidden="true"></div>
+
+    <div class="hero-content">
+        <h1 class="name">Valentina</h1>
+        <div class="subtitle">MIS QUINCE AÑOS</div>
+        <div class="divider" aria-hidden="true"></div>
+        <div class="subtitle" style="letter-spacing:1px">RESERVA EL DÍA</div>
+        <div class="date">6 de Febrero</div>
+        <div class="subtitle">Los invita: Angélica Aguilar y René Cifuentes</div>
+        <div class="audio-wrap" style="margin-top:22px;">
+            <audio controls preload="metadata" id="bgAudio">
+                <source src="assets/song.mp3" type="audio/mpeg">
+                Tu navegador no soporta audio.
+            </audio>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section>
+        <div class="container">
+            <h2 class="section-title">Una princesa se viste de ilusión.</h2>
+            <p class="lead">Gracias Dios por los padres que me diste, por encomendarles la bendición de darme la vida y la misión de formarme y verme crecer. La dicha de compartir mis triunfos, sueños, esperanzas.</p>
+
+            <div class="portrait" aria-hidden="false">
+                <img src="quinceañera.jpg" alt="Foto de Valentina">
+            </div>
+
+            <div class="quote-box" role="note">
+                <p class="quote">Los momentos especiales se hacen inolvidables rodeados de aquellos a quienes amamos, por eso tu presencia es muy importante para nosotros.</p>
+            </div>
+
+            <div class="countdown-wrap">
+                <h2 class="section-title" style="font-size:34px;margin-bottom:10px">Faltan:</h2>
+                <div class="countdown" id="countdown">
+                    <div class="count-item">
+                        <div class="count-number" id="days">0</div>
+                        <div class="count-label">DÍAS</div>
+                    </div>
+                    <div class="count-item">
+                        <div class="count-number" id="hours">00</div>
+                        <div class="count-label">HORAS</div>
+                    </div>
+                    <div class="count-item">
+                        <div class="count-number" id="minutes">00</div>
+                        <div class="count-label">MINUTOS</div>
+                    </div>
+                    <div class="count-item">
+                        <div class="count-number" id="seconds">00</div>
+                        <div class="count-label">SEGUNDOS</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top:40px">
+                <h2 class="section-title" style="font-size:32px;margin-bottom:6px">Código de vestuario</h2>
+                <div class="dress">
+                    <div class="dress-item">
+                        <div class="circle-ico">
+                            <img src="vestido.jpg" alt="" style="width:80px;height:80px;display:block;border-radius: 50%;">
+                        </div>
+                        <h4>Formal</h4>
+                        <div style="color:var(--muted);margin-top:6px">Tu presencia es el mejor regalo.</div>
+                    </div>
+                </div>
+
+                <p class="lead" style="margin-top:20px;font-size:1.1em;color:var(--accent);font-weight:700;">
+                    ¡Tu regalo es opcional! Será **Lluvia de Sobres**.
+                </p>
+
+                <div class="dress">
+                    <div class="dress-item">
+                        <div class="circle-ico">
+                            <img src="sobre.jpg" alt="" style="width:70px;height:70px;display:block;border-radius: 50%;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="envelopes" aria-hidden="true">
+                    <div class="env"><img src="assets/envelope.png" alt=""></div>
+                    <div class="env"><img src="assets/envelope.png" alt=""></div>
+                    <div class="env"><img src="assets/envelope.png" alt=""></div>
+                    <div class="env"><img src="assets/envelope.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <h2 class="section-title">Nuestros Mejores Momentos</h2>
+        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide"><img src="foto1.jpg" alt="Foto 1 de Valentina"></div>
+                <div class="carousel-slide"><img src="foto2.jpg" alt="Foto 2 de Valentina"></div>
+                <div class="carousel-slide"><img src="foto3_.jpg" alt="Foto 3 de Valentina"></div>
+                <div class="carousel-slide"><img src="foto4.jpg" alt="Foto 4 de Valentina"></div>
+                <div class="carousel-slide"><img src="foto5.jpg" alt="Foto 5 de Valentina"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: LUGAR Y HORA -->
+<section>
+    <div class="container">
+        <h2 class="section-title">Ubicación</h2>
+        <p class="lead">Será un día inolvidable, y nos encantará compartirlo contigo.</p>
+
+        <div style="
+            max-width:800px;
+            margin:0 auto;
+            padding:25px;
+            border-radius:12px;
+            background:rgba(255,255,255,0.9);
+            box-shadow:0 6px 18px rgba(0,0,0,0.08);
+            border:2px solid rgba(230,166,179,0.4);
+        ">
+            <h2 class="section-title" style="margin-bottom:4px;font-size:34px;">📍Lugar del Evento</h2>
+            <p style="text-align:center;margin:0;color:#444;font-weight:600;font-size:18px;">
+                 Eventos Casa Prado
+            </p>
+
+            <p style="text-align:center;margin:10px 0 20px;color:#666;">
+                Carrera 50 # 64-00 Prado Centro
+            </p>
+
+            <h2 class="section-title" style="margin-top:25px;font-size:32px;">⏰ Hora</h2>
+            <p style="text-align:center;margin:0;color:#444;font-weight:600;font-size:18px;">
+                6 de Febrero – 7:00 PM
+            </p>
+
+            <div style="text-align:center;margin-top:25px;">
+                <a href="https://maps.app.goo.gl/ix9JSdLq25ocFKDC6" 
+                   target="_blank" 
+                   class="btn"
+                   style="background:#e6a6b3;color:white;font-weight:700;">
+                    Ver ubicación en Google Maps
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <section>
+        <div class="container">
+            <div id="rsvp-form-section">
+                <h3>Confirma Tu Asistencia</h3>
+                <form id="rsvp-form">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo del Invitado(s):</label>
+                        <input type="text" id="name" name="name" required placeholder="Ej: Familia García / Sr. Juan Pérez">
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Asistirás a la Celebración?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="rsvp-yes" name="attendance" value="Si confirmo mi asistencia" class="radio-input" required>
+                            <label for="rsvp-yes" class="radio-label">Sí, ¡Ahí estaré!</label>
+                            
+                            <input type="radio" id="rsvp-no" name="attendance" value="No podre asistir" class="radio-input">
+                            <label for="rsvp-no" class="radio-label">No podré asistir</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="guests-group" style="display:none;">
+                        <label for="guests">¿Cuántos adultos (incluyéndote) asistirán?</label>
+                        <select id="guests" name="guests" required>
+                            <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                            <option value="4">4</option><option value="5+">5 o más</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Comentario Adicional (Opcional):</label>
+                        <textarea id="notes" name="notes" rows="3" placeholder="Ej: Feliz cumpleaños!"></textarea>
+                    </div>
+                    <button type="submit" class="form-submit-btn">Enviar Confirmación por WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    </main>
+
+<footer>
+    <div class="container">
+        <p style="margin:0 0 8px;font-family:'Dancing Script';font-size:20px">¡Te esperamos para celebrar!</p>
+        <small style="color:var(--muted)">Invitación creada con ❤</small>
+    </div>
+</footer>
+
+<script>
+    // 1. CONFIGURACIÓN DE DATOS
+    const QUINCEAÑERA_NAME = "Valentina"; 
+    const WHATSAPP_NUMBER = "573024170164"; 
+    // Fecha objetivo: (year, monthIndex, day, hour, minute, second) -> 2026-02-06 19:00:00
+    const target = new Date(2026, 1, 6, 19, 0, 0); 
+    
+    // --- Configuración del Carrusel ---
+    const VISIBLE_SLIDES = 3; // Mostrar 3 fotos a la vez
+    const TOTAL_SLIDES = 5;   // Total de fotos que tienes
+    const MAX_PAGES = TOTAL_SLIDES - VISIBLE_SLIDES + 1; // 5 - 3 + 1 = 3 páginas posibles (inicio, centro, final)
+    let currentPage = 0;
+    const intervalTime = 2000; // 4 segundos entre cada pase
+
+    // ------------- Contador ---------------
+    function updateCountdown(){
+        const now = new Date();
+        let diff = target - now;
+
+        if(diff < 0){
+            document.getElementById('days').textContent = "0";
+            document.getElementById('hours').textContent = "00";
+            document.getElementById('minutes').textContent = "00";
+            document.getElementById('seconds').textContent = "00";
+            clearInterval(timerInterval);
+            return;
+        }
+
+        const days = Math.floor(diff / (1000*60*60*24));
+        diff -= days * (1000*60*60*24);
+        const hours = Math.floor(diff / (1000*60*60));
+        diff -= hours * (1000*60*60);
+        const minutes = Math.floor(diff / (1000*60));
+        diff -= minutes * (1000*60);
+        const seconds = Math.floor(diff / 1000);
+
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = String(hours).padStart(2,'0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
+    }
+
+    const timerInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ------------- Carrusel Automático (AJUSTADO) ---------------
+    const carouselTrack = document.getElementById('carouselTrack');
+    
+    function nextSlide() {
+        // Pasa a la siguiente página. Si llega al final, vuelve a 0.
+        currentPage = (currentPage + 1) % MAX_PAGES;
+        updateCarousel();
+    }
+
+    function updateCarousel() {
+        // Calcula el porcentaje de desplazamiento basado en el ancho de 1 foto (100%/5)
+        const slideWidthPercentage = 100 / TOTAL_SLIDES; 
+        const offset = -currentPage * slideWidthPercentage; 
+        carouselTrack.style.transform = `translateX(${offset}%)`;
+    }
+
+    // Inicia el carrusel automático
+    if(carouselTrack) {
+        // Asegura que el carrusel solo se mueva si hay más de 3 fotos
+        if (TOTAL_SLIDES > VISIBLE_SLIDES) {
+             setInterval(nextSlide, intervalTime);
+        }
+        updateCarousel();
+    }
+
+    // ------------- Formulario RSVP y WhatsApp ---------------
+    
+    // Toggle field de invitados
+    document.getElementsByName('attendance').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const guestsGroup = document.getElementById('guests-group');
+            if (document.getElementById('rsvp-yes').checked) {
+                guestsGroup.style.display = 'block';
+                document.getElementById('guests').setAttribute('required', 'required');
+            } else {
+                guestsGroup.style.display = 'none';
+                document.getElementById('guests').removeAttribute('required');
+            }
+        });
+    });
+
+    document.getElementById('rsvp-form').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        
+        const name = document.getElementById('name').value.trim();
+        const attendanceElement = document.querySelector('input[name="attendance"]:checked');
+        const attendance = attendanceElement ? attendanceElement.value : '';
+        const guests = document.getElementById('guests').value;
+        const notes = document.getElementById('notes').value.trim();
+
+        if (!name || !attendance) {
+            alert('Por favor, completa tu nombre y si asistirás.');
+            return;
+        }
+        
+        // CONSTRUCCIÓN DEL MENSAJE EN TEXTO PLANO
+        let message = `CONFIRMACIÓN - 15 AÑOS de ${QUINCEAÑERA_NAME}\n\n`; 
+        message += `Invitado(s): ${name}\n`;
+        message += `Asistencia: ${attendance}\n`;
+        
+        if (attendance === 'Si confirmo mi asistencia') {
+            message += `Total de Personas: ${guests} adultos\n`;
+        }
+        
+        if (notes) {
+            message += `Comentarios: ${notes}\n`;
+        }
+
+        // message += `\nEnviado desde la invitación web.`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+        window.open(whatsappUrl, '_blank');
+        
+        alert('¡Tu confirmación ha sido enviada! Muchas gracias por confirmar.');
+        this.reset();
+    });
+
+    // ------------- Add to calendar (ICS download) (Sin cambios) ---------------
+    function fmtICSDate(d){
+        const pad = n => String(n).padStart(2,'0');
+        return d.getFullYear().toString() + pad(d.getMonth()+1) + pad(d.getDate()) + 'T' + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds());
+    }
+    
+    // ... Código de btnCalendar (si se mantiene visible)
+
+    // ------------- Accessibility & fallbacks ---------------
+    const vid = document.querySelector('.hero video');
+    if(vid) vid.addEventListener('error', function(){ vid.style.display='none'; });
+    const audio = document.getElementById('bgAudio');
+    if(audio){
+        audio.addEventListener('play', ()=> console.log('audio play'));
+    }
+</script>
+</body>
+</html>
